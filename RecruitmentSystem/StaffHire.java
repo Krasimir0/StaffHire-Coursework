@@ -20,7 +20,6 @@ public class StaffHire
         this.joined = joined;
     }
     
-    //Getters
        public int getVacancyNumber() {
         return vacancyNumber;
     }

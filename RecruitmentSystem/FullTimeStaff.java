@@ -9,15 +9,15 @@
         this.weeklyFractionalHours = weeklyFractionalHours;
     }
     
-    public void CheackSalary() {
+    public void checkSalary() {
         boolean validSalary; 
         if(salary > 0.0)
         {
-            super.displayDetails();
+            displayDetails();
         }
         else
         {
-            displayDetails();
+            super.displayDetails();
         }
     }
     
