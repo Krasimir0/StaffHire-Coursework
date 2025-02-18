@@ -7,14 +7,14 @@
  */
 public class StaffHire
 {
-    private int vacancyNumber;
-    private int designationType;
-    private String jobType;
-    private String staffName;
-    private String joiningDate;
-    private String qualification;
-    private String appointedBy;
-    private boolean joined;
+    public int vacancyNumber;
+    public int designationType;
+    public String jobType;
+    public String staffName;
+    public String joiningDate;
+    public String qualification;
+    public String appointedBy;
+    public boolean joined;
     
     public StaffHire(int vacancyNumber, int designationType, String jobType, String staffName, String joiningDate, String qualification, String appointedBy, boolean joined) {
         this.vacancyNumber = vacancyNumber;
@@ -27,6 +27,7 @@ public class StaffHire
         this.joined = joined;
     }
     
+    //Getters
        public int getVacancyNumber() {
         return vacancyNumber;
     }
