@@ -1,6 +1,5 @@
 #BlueJ class context
 comment0.target=StaffHire
-comment0.text=\n\ Write\ a\ description\ of\ class\ StaffHire\ here.\n\n\ @author\ (your\ name)\n\ @version\ (a\ version\ number\ or\ a\ date)\n
 comment1.params=vacancyNumber\ designationType\ jobType\ staffName\ joiningDate\ qualification\ appointedBy\ joined
 comment1.target=StaffHire(int,\ int,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ boolean)
 comment10.params=vacancyNumber
@@ -19,6 +18,8 @@ comment16.params=appointedBy
 comment16.target=void\ setAppointedBy(java.lang.String)
 comment17.params=joined
 comment17.target=void\ setJoined(boolean)
+comment18.params=
+comment18.target=void\ displayDetails()
 comment2.params=
 comment2.target=int\ getVacancyNumber()
 comment3.params=
@@ -35,4 +36,4 @@ comment8.params=
 comment8.target=java.lang.String\ getAppointedBy()
 comment9.params=
 comment9.target=boolean\ isJoined()
-numComments=18
+numComments=19

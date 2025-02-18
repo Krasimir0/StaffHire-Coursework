@@ -1,10 +1,3 @@
-
-/**
- * Write a description of class StaffHire here.
- *
- * @author (your name)
- * @version (a version number or a date)
- */
 public class StaffHire
 {
     public int vacancyNumber;
@@ -60,7 +53,7 @@ public class StaffHire
         return joined;
     }
 
-    // Setters
+
     public void setVacancyNumber(int vacancyNumber) {
         this.vacancyNumber = vacancyNumber;
     }
@@ -93,4 +86,14 @@ public class StaffHire
         this.joined = joined;
     }
     
+    public void displayDetails() {
+        System.out.println("Vacancy Number: " + vacancyNumber);
+        System.out.println("Designation: " + designationType);
+        System.out.println("Job Type: " + jobType);
+        System.out.println("Staff Name: " + staffName);
+        System.out.println("Joining Date: " + (joiningDate.isEmpty() ? "Not Assigned" : joiningDate));
+        System.out.println("Qualification: " + qualification);
+        System.out.println("Appointed By: " + appointedBy);
+        System.out.println("Joined: " + joined);
+    }
 }
