@@ -6,8 +6,9 @@ public class RecruitmentSystemGUI {
     private JFrame frame;
     private JTextField vacancyNumberField, designationField, jobTypeField, staffNameField,
             joiningDateField, qualificationField, appointedByField, salaryField,
-            weeklyHoursField, workingHoursField, wagesPerHourField, shiftsField, displayNumberField;
+            weeklyHoursField, workingHoursField, wagesPerHourField, shiftsField, displayNumberField, terminated;
     private JCheckBox joinedCheckBox;
+    private JCheckBox terminateCheckBox;
     private Database database;  // Using Database class
 
     public RecruitmentSystemGUI() {
@@ -51,6 +52,10 @@ public class RecruitmentSystemGUI {
         joinedCheckBox = new JCheckBox();
         frame.add(joinedCheckBox);
         
+        frame.add(new JLabel("Terminated:"));
+        terminateCheckBox = new JCheckBox();
+        frame.add(terminateCheckBox);
+        
         frame.add(new JLabel("Salary:"));
         salaryField = new JTextField();
         frame.add(salaryField);
@@ -62,6 +67,10 @@ public class RecruitmentSystemGUI {
         frame.add(new JLabel("Working Hours:"));
         workingHoursField = new JTextField();
         frame.add(workingHoursField);
+        
+        frame.add(new JLabel("Wages per Hour:"));
+        wagesPerHourField = new JTextField();
+        frame.add(wagesPerHourField);
         
         frame.add(new JLabel("Shifts:"));
         shiftsField = new JTextField();
@@ -76,9 +85,9 @@ public class RecruitmentSystemGUI {
         addFullTimeButton.addActionListener(e -> addFullTimeStaff());
         frame.add(addFullTimeButton);
         
-        //JButton addPartTimeButton = new JButton("Add Part Time Staff");
-        //addPartTimeButton.addActionListener(e -> addPartTimeStaff());
-        //frame.add(addPartTimeButton);
+        JButton addPartTimeButton = new JButton("Add Part Time Staff");
+        addPartTimeButton.addActionListener(e -> addPartTimeStaff());
+        frame.add(addPartTimeButton);
         
         JButton setSalaryButton = new JButton("Set Salary");
         setSalaryButton.addActionListener(e -> setSalary());
@@ -120,6 +129,29 @@ public class RecruitmentSystemGUI {
             FullTimeStaff fullTimeStaff = new FullTimeStaff(vacancyNumber, designationType, jobType, staffName, joiningDate, qualification, appointedBy, joined, salary, weeklyHours);
             database.addStaff(fullTimeStaff); // Adding to database
             JOptionPane.showMessageDialog(frame, "Full Time Staff Added Successfully!");
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(frame, "Invalid input! Please enter correct values.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+      private void addPartTimeStaff() {
+        try {
+            int vacancyNumber = Integer.parseInt(vacancyNumberField.getText());
+            int designationType = Integer.parseInt(designationField.getText());
+            String jobType = jobTypeField.getText();
+            String staffName = staffNameField.getText();
+            String joiningDate = joiningDateField.getText();
+            String qualification = qualificationField.getText();
+            String appointedBy = appointedByField.getText();
+            boolean joined = joinedCheckBox.isSelected();
+            int workingHours = Integer.parseInt(workingHoursField.getText());
+            String shifts = shiftsField.getText();
+            double wagesPerHour = Double.parseDouble(wagesPerHourField.getText());
+            boolean terminated = terminateCheckBox.isSelected();
+            
+            PartTimeStaffHire partTimeStaff = new PartTimeStaffHire(vacancyNumber, designationType, jobType, staffName, joiningDate, qualification, appointedBy, joined, workingHours, wagesPerHour, shifts, terminated);
+            database.addStaff(partTimeStaff); // Adding to database
+            JOptionPane.showMessageDialog(frame, "Part Time Staff Added Successfully!");
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(frame, "Invalid input! Please enter correct values.", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -193,7 +225,10 @@ public class RecruitmentSystemGUI {
         weeklyHoursField.setText("");
         shiftsField.setText("");
         displayNumberField.setText("");
+        wagesPerHourField.setText("");
+        workingHoursField.setText("");
         joinedCheckBox.setSelected(false);
+        terminateCheckBox.setSelected(false);
     }
 
     public static void main(String[] args) {
