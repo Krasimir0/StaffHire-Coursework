@@ -4,14 +4,17 @@ public class PartTimeStaffHire extends StaffHire
     public double wagesPerHour;
     public String shifts;
     public boolean terminated;
-    public double incomePerDay = workingHour + wagesPerHour;
     
-    public PartTimeStaffHire(int vacancyNumber, int designationType, String jobType, String staffName, String joiningDate, String qualification, String appointedBy, boolean joined){
+    public PartTimeStaffHire(int vacancyNumber, int designationType, String jobType, String staffName, String joiningDate, String qualification, String appointedBy, boolean joined, int workingHour, double wagesPerHour, String shifts, boolean terminated){
         super(vacancyNumber, designationType, jobType, staffName, joiningDate, qualification, appointedBy, joined);
         this.workingHour = workingHour;
         this.wagesPerHour = wagesPerHour;
         this.shifts = shifts;
         this.terminated = false;
+    }
+    
+    public double getIncomePerDay() {
+        return workingHour * wagesPerHour; 
     }
     
     public void checkWorkingHour() {
@@ -77,6 +80,6 @@ public class PartTimeStaffHire extends StaffHire
         System.out.println("Working hours: " + workingHour);
         System.out.println("Shifts: " + shifts);
         System.out.println("Terminated: " + terminated);
-        System.out.println("Income per day: " + incomePerDay);
+        System.out.println("Income per day: " + getWorkingHour());
     }
 }

@@ -3,7 +3,7 @@
     public double salary;
     public int weeklyFractionalHours;
     
-    public FullTimeStaff(int vacancyNumber, int designationType, String jobType, String staffName, String joiningDate, String qualification, String appointedBy, boolean joined){
+    public FullTimeStaff(int vacancyNumber, int designationType, String jobType, String staffName, String joiningDate, String qualification, String appointedBy, boolean joined, double salary, int weeklyFractionalHours){
         super(vacancyNumber, designationType, jobType, staffName, joiningDate, qualification, appointedBy, joined);
         this.salary = salary;
         this.weeklyFractionalHours = weeklyFractionalHours;
@@ -25,7 +25,7 @@
         return salary;
     }
 
-    public int getDesignationType() {
+    public int getWeeklyFractionalHours() {
         return weeklyFractionalHours;
     }
     
