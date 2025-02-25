@@ -101,9 +101,9 @@ public class RecruitmentSystemGUI {
         terminateButton.addActionListener(e -> terminateStaff());
         frame.add(terminateButton);
         
-        //JButton displayButton = new JButton("Display Staff Info");
-        //displayButton.addActionListener(e -> displayStaff());
-        //frame.add(displayButton);
+        JButton displayButton = new JButton("Display Staff Info");
+        displayButton.addActionListener(e -> displayStaff());
+        frame.add(displayButton);
         
         JButton clearButton = new JButton("Clear Fields");
         clearButton.addActionListener(e -> clearFields());
@@ -175,7 +175,7 @@ public class RecruitmentSystemGUI {
             JOptionPane.showMessageDialog(frame, "Invalid input! Please enter a number.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
+    
     // **Method to Set Working Shifts for Part Time Staff**
     private void setShifts() {
         try {
@@ -212,6 +212,41 @@ public class RecruitmentSystemGUI {
             JOptionPane.showMessageDialog(frame, "Invalid input! Please enter a number.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+    
+   private void displayStaff() {
+    try {
+        int vacancyNumber = Integer.parseInt(displayNumberField.getText());
+        boolean found = false;
+        
+        // Check in Full Time Staff List
+        for (FullTimeStaff staff : database.getFullTimeStaffList()) {
+            if (staff.getVacancyNumber() == vacancyNumber) {
+                staff.checkSalary(); 
+                found = true;
+                break;
+            }
+        }
+        
+        // Check in Part Time Staff List
+        if (!found) {
+            for (PartTimeStaffHire staff : database.getPartTimeStaffList()) {
+                if (staff.getVacancyNumber() == vacancyNumber) {
+                    staff.checkWorkingHour(); 
+                    found = true;
+                    break;
+                }
+            }
+        }
+        
+        if (!found) {
+            JOptionPane.showMessageDialog(frame, "Vacancy Number Not Found!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(frame, "Invalid input! Please enter a valid number.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+
 
     private void clearFields() {
         vacancyNumberField.setText("");
@@ -228,7 +263,7 @@ public class RecruitmentSystemGUI {
         wagesPerHourField.setText("");
         workingHoursField.setText("");
         joinedCheckBox.setSelected(false);
-        terminateCheckBox.setSelected(false);
+        terminateCheckBox.setSelected(false);   
     }
 
     public static void main(String[] args) {
