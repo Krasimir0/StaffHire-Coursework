@@ -237,6 +237,7 @@ public class RecruitmentSystemGUI {
         
         for (FullTimeStaff staff : database.getFullTimeStaffList()) {
             if (staff.getVacancyNumber() == vacancyNumber) {
+                
             if(staff.salary > 0.0)
             {
                 staff.displayDetails(); 
@@ -244,11 +245,15 @@ public class RecruitmentSystemGUI {
             }
             else
             {
-                ((StaffHire) staff).displayDetails();
-                return;
-            }
+                for (StaffHire allStaff : database.getStaffList()) {
+                        if (allStaff.getVacancyNumber() == vacancyNumber) {   
+                                allStaff.displayDetails(); 
+                                return;
+                }           
             }
         }
+    }
+ }
         
         for (PartTimeStaffHire staff : database.getPartTimeStaffList()) {
                 if (staff.getVacancyNumber() == vacancyNumber) {
@@ -259,7 +264,6 @@ public class RecruitmentSystemGUI {
                     }
                     else
                     {
-                        ((StaffHire) staff).displayDetails();
                         return;
                     }
                 }
@@ -269,9 +273,6 @@ public class RecruitmentSystemGUI {
         JOptionPane.showMessageDialog(frame, "Invalid input! Please enter a valid number.", "Error", JOptionPane.ERROR_MESSAGE);
     }
 }
-
-
-
     private void clearFields() {
         vacancyNumberField.setText("");
         designationField.setText("");
@@ -290,7 +291,7 @@ public class RecruitmentSystemGUI {
         terminateCheckBox.setSelected(false);   
     }
 
-    public static void main(String[] args) {
+   public static void main(String[] args) {
         new RecruitmentSystemGUI();
     }
 }
