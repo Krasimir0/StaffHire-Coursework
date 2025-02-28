@@ -45,11 +45,7 @@ public class PartTimeStaffHire extends StaffHire
     
     public void terminateStaff() {
         if (terminated)
-        {
-           System.out.println("Staff is already terminated");
-        }
-        else
-        {
+        { 
             super.staffName = "";
             super.joiningDate = "";
             super.qualification = "";

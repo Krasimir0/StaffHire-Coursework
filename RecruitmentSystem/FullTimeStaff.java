@@ -9,8 +9,7 @@
         this.weeklyFractionalHours = weeklyFractionalHours;
     }
     
-    public void checkSalary() {
-        boolean validSalary; 
+    public void checkSalary() { 
         if(salary > 0.0)
         {
             displayDetails();
@@ -30,10 +29,8 @@
     }
     
     public void setSalary(double newSalary) {
-        if (super.joined) { // Checking if the staff has joined
+        if (super.joined) {
             this.salary = newSalary;
-        } else {
-            System.out.println("No staff appointed to set the salary.");
         }
     }
     

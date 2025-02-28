@@ -9,7 +9,7 @@ public class RecruitmentSystemGUI {
             weeklyHoursField, workingHoursField, wagesPerHourField, shiftsField, displayNumberField, terminated;
     private JCheckBox joinedCheckBox;
     private JCheckBox terminateCheckBox;
-    private Database database;  // Using Database class
+    private Database database;  
 
     public RecruitmentSystemGUI() {
         database = new Database(); // Initialize database
@@ -112,7 +112,6 @@ public class RecruitmentSystemGUI {
         frame.setVisible(true);
     }
 
-    // **Method to Add Full Time Staff**
     private void addFullTimeStaff() {
         try {
             int vacancyNumber = Integer.parseInt(vacancyNumberField.getText());
@@ -157,7 +156,6 @@ public class RecruitmentSystemGUI {
         }
     }
     
-    // **Method to Set Salary for Full Time Staff**
     private void setSalary() {
         try {
             int vacancyNumber = Integer.parseInt(vacancyNumberField.getText());
@@ -165,9 +163,15 @@ public class RecruitmentSystemGUI {
 
             for (FullTimeStaff staff : database.getFullTimeStaffList()) {
                 if (staff.getVacancyNumber() == vacancyNumber) {
-                    staff.setSalary(newSalary);
-                    JOptionPane.showMessageDialog(frame, "Salary Updated Successfully!");
-                    return;
+                    if(staff.joined) {
+                        staff.setSalary(newSalary);
+                        JOptionPane.showMessageDialog(frame, "Salary Updated Successfully!");
+                        return;
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(frame, "No staff appointed to set the salary.");
+                        return;
+                    }
                 }
             }
             JOptionPane.showMessageDialog(frame, "Vacancy Not Found!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -176,7 +180,6 @@ public class RecruitmentSystemGUI {
         }
     }
     
-    // **Method to Set Working Shifts for Part Time Staff**
     private void setShifts() {
         try {
             int vacancyNumber = Integer.parseInt(vacancyNumberField.getText());
@@ -184,9 +187,15 @@ public class RecruitmentSystemGUI {
 
             for (PartTimeStaffHire staff : database.getPartTimeStaffList()) {
                 if (staff.getVacancyNumber() == vacancyNumber) {
-                    staff.setWorkingShifts(newShift);
-                    JOptionPane.showMessageDialog(frame, "Shift Updated Successfully!");
-                    return;
+                     if(staff.joined) {
+                          staff.setWorkingShifts(newShift);
+                          JOptionPane.showMessageDialog(frame, "Shift Updated Successfully!");
+                          return;
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(frame, "No staff appointed to set a shift.");
+                        return;
+                    }
                 }
             }
             JOptionPane.showMessageDialog(frame, "Vacancy Not Found!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -195,16 +204,24 @@ public class RecruitmentSystemGUI {
         }
     }
 
-    // **Method to Terminate Part Time Staff**
     private void terminateStaff() {
         try {
             int vacancyNumber = Integer.parseInt(vacancyNumberField.getText());
 
             for (PartTimeStaffHire staff : database.getPartTimeStaffList()) {
                 if (staff.getVacancyNumber() == vacancyNumber) {
+                    if(staff.terminated)
+                    {
                     staff.terminateStaff();
                     JOptionPane.showMessageDialog(frame, "Part Time Staff Terminated Successfully!");
                     return;
+                    }
+                    else
+                    {
+                     JOptionPane.showMessageDialog(frame, "Staff is already terminated");   
+                     return;
+                    }
+
                 }
             }
             JOptionPane.showMessageDialog(frame, "Vacancy Not Found!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -218,29 +235,36 @@ public class RecruitmentSystemGUI {
         int vacancyNumber = Integer.parseInt(displayNumberField.getText());
         boolean found = false;
         
-        // Check in Full Time Staff List
         for (FullTimeStaff staff : database.getFullTimeStaffList()) {
             if (staff.getVacancyNumber() == vacancyNumber) {
-                staff.checkSalary(); 
-                found = true;
-                break;
+            if(staff.salary > 0.0)
+            {
+                staff.displayDetails(); 
+                return;
+            }
+            else
+            {
+                ((StaffHire) staff).displayDetails();
+                return;
+            }
             }
         }
         
-        // Check in Part Time Staff List
-        if (!found) {
-            for (PartTimeStaffHire staff : database.getPartTimeStaffList()) {
+        for (PartTimeStaffHire staff : database.getPartTimeStaffList()) {
                 if (staff.getVacancyNumber() == vacancyNumber) {
-                    staff.checkWorkingHour(); 
-                    found = true;
-                    break;
+                    if(staff.workingHour > 0)
+                    {
+                        staff.displayDetails(); 
+                        return;
+                    }
+                    else
+                    {
+                        ((StaffHire) staff).displayDetails();
+                        return;
+                    }
                 }
             }
-        }
-        
-        if (!found) {
-            JOptionPane.showMessageDialog(frame, "Vacancy Number Not Found!", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        JOptionPane.showMessageDialog(frame, "Vacancy Number Not Found!", "Error", JOptionPane.ERROR_MESSAGE);
     } catch (NumberFormatException e) {
         JOptionPane.showMessageDialog(frame, "Invalid input! Please enter a valid number.", "Error", JOptionPane.ERROR_MESSAGE);
     }
